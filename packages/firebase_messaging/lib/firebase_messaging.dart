@@ -22,7 +22,7 @@ typedef Future<dynamic> MessageHandler(Map<String, dynamic> message);
 /// by the firebase_messaging plugin to setup background message handling.
 void _fcmSetupBackgroundChannel(
     {MethodChannel backgroundChannel = const MethodChannel(
-        'plugins.flutter.io/firebase_messaging_background')}) async {
+        'plugins.flutter.io/firebase_messaging_background')}) {
   // Setup Flutter state needed for MethodChannels.
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -146,8 +146,8 @@ class FirebaseMessaging {
   }
 
   /// Returns the FCM token.
-  Future<String> getToken() async {
-    return await _channel.invokeMethod<String>('getToken');
+  Future<String> getToken() {
+    return _channel.invokeMethod<String>('getToken');
   }
 
   /// Subscribe to topic in background.
@@ -168,21 +168,21 @@ class FirebaseMessaging {
   /// A new Instance ID is generated asynchronously if Firebase Cloud Messaging auto-init is enabled.
   ///
   /// returns true if the operations executed successfully and false if an error ocurred
-  Future<bool> deleteInstanceID() async {
-    return await _channel.invokeMethod<bool>('deleteInstanceID');
+  Future<bool> deleteInstanceID() {
+    return _channel.invokeMethod<bool>('deleteInstanceID');
   }
 
   /// Determine whether FCM auto-initialization is enabled or disabled.
-  Future<bool> autoInitEnabled() async {
-    return await _channel.invokeMethod<bool>('autoInitEnabled');
+  Future<bool> autoInitEnabled() {
+    return _channel.invokeMethod<bool>('autoInitEnabled');
   }
 
   /// Enable or disable auto-initialization of Firebase Cloud Messaging.
-  Future<void> setAutoInitEnabled(bool enabled) async {
-    await _channel.invokeMethod<void>('setAutoInitEnabled', enabled);
+  Future<void> setAutoInitEnabled(bool enabled) {
+    return _channel.invokeMethod<void>('setAutoInitEnabled', enabled);
   }
 
-  Future<dynamic> _handleMethod(MethodCall call) async {
+  Future<dynamic> _handleMethod(MethodCall call) {
     switch (call.method) {
       case "onToken":
         final String token = call.arguments;
